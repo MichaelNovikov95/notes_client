@@ -18,9 +18,12 @@ function App() {
 
   async function fetchNotes() {
     try {
-      const response = await fetch("https://notes-server-vyah.onrender.com", {
-        method: "GET",
-      });
+      const response = await fetch(
+        "https://notes-server-vyah.onrender.com/api/notes",
+        {
+          method: "GET",
+        }
+      );
       const fetchedNotes: iNote[] = await response.json();
       setNotes(fetchedNotes);
     } catch (error: any) {
@@ -32,14 +35,17 @@ function App() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://notes-server-vyah.onrender.com", {
-        method: "POST",
+      const response = await fetch(
+        "https://notes-server-vyah.onrender.com/api/notes",
+        {
+          method: "POST",
 
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title, content }),
-      });
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title, content }),
+        }
+      );
 
       const newNote = await response.json();
       setNotes([newNote, ...notes]);
