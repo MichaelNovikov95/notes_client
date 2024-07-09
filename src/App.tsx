@@ -18,7 +18,7 @@ function App() {
 
   async function fetchNotes() {
     try {
-      const response = await fetch("http://localhost:8000/api/notes");
+      const response = await fetch("https://notes-server-vyah.onrender.com");
       const fetchedNotes: iNote[] = await response.json();
       setNotes(fetchedNotes);
     } catch (error: any) {
