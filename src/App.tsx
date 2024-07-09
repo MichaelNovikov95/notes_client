@@ -18,7 +18,10 @@ function App() {
 
   async function fetchNotes() {
     try {
-      const response = await fetch("https://notes-server-vyah.onrender.com");
+      const response = await fetch("https://notes-server-vyah.onrender.com", {
+        method: "GET",
+        mode: "cors",
+      });
       const fetchedNotes: iNote[] = await response.json();
       setNotes(fetchedNotes);
     } catch (error: any) {
@@ -32,6 +35,7 @@ function App() {
     try {
       const response = await fetch("https://notes-server-vyah.onrender.com", {
         method: "POST",
+        mode: "cors",
         headers: {
           "Content-Type": "application/json",
         },
@@ -67,6 +71,7 @@ function App() {
         `https://notes-server-vyah.onrender.com/api/notes/${id}`,
         {
           method: "PUT",
+          mode: "cors",
           headers: {
             "Content-Type": "application/json",
           },
@@ -101,6 +106,7 @@ function App() {
         `https://notes-server-vyah.onrender.com/api/notes/${noteId}`,
         {
           method: "DELETE",
+          mode: "cors",
         }
       );
     } catch (error: any) {
