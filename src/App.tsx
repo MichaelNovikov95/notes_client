@@ -30,7 +30,7 @@ function App() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/api/notes", {
+      const response = await fetch("https://notes-server-vyah.onrender.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,13 +63,16 @@ function App() {
     const id = selectedNote._id;
 
     try {
-      const response = await fetch(`http://localhost:8000/api/notes/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title, content }),
-      });
+      const response = await fetch(
+        `https://notes-server-vyah.onrender.com/api/notes/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title, content }),
+        }
+      );
       const updatedNote = await response.json();
       setNotes(
         notes.map((note) => (note._id === updatedNote._id ? updatedNote : note))
@@ -94,9 +97,12 @@ function App() {
     e.stopPropagation();
 
     try {
-      await fetch(`http://localhost:8000/api/notes/${noteId}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://notes-server-vyah.onrender.com/api/notes/${noteId}`,
+        {
+          method: "DELETE",
+        }
+      );
     } catch (error: any) {
       console.log(error.message);
     }
