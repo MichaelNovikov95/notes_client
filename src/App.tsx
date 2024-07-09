@@ -21,7 +21,7 @@ function App() {
       const response = await fetch("http://localhost:8000/api/notes");
       const fetchedNotes: iNote[] = await response.json();
       setNotes(fetchedNotes);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.message);
     }
   }
@@ -40,7 +40,7 @@ function App() {
 
       const newNote = await response.json();
       setNotes([newNote, ...notes]);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.message);
     }
     setTitle("");
@@ -74,7 +74,7 @@ function App() {
       setNotes(
         notes.map((note) => (note._id === updatedNote._id ? updatedNote : note))
       );
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.message);
     }
 
@@ -97,7 +97,7 @@ function App() {
       await fetch(`http://localhost:8000/api/notes/${noteId}`, {
         method: "DELETE",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.message);
     }
 
