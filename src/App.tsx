@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Notes from "./components/Notes";
 import Form from "./components/Form";
+import Loader from "./components/Loader";
 
 import { iNote } from "./interfaces/interfaces";
 
@@ -10,6 +11,7 @@ function App() {
   const [notes, setNotes] = useState<iNote[]>([]);
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [selectedNote, setSelectedNote] = useState<iNote | null>(null);
 
   useEffect(() => {
@@ -18,6 +20,7 @@ function App() {
 
   async function fetchNotes() {
     try {
+      setLoading(true);
       const response = await fetch(
         "https://notes-server-vyah.onrender.com/api/notes",
         {
@@ -28,6 +31,8 @@ function App() {
       setNotes(fetchedNotes);
     } catch (error: any) {
       console.log(error.message);
+    } finally {
+      setLoading(true);
     }
   }
 
@@ -132,15 +137,19 @@ function App() {
         setContent={setContent}
         handleCancel={handleCancel}
       />
-      <div className="notes-grid">
-        <Notes
-          notes={notes}
-          handleNoteClick={
-            handleNoteClick as (note: iNote | null) => Promise<void>
-          }
-          deleteNote={deleteNote}
-        />
-      </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="notes-grid">
+          <Notes
+            notes={notes}
+            handleNoteClick={
+              handleNoteClick as (note: iNote | null) => Promise<void>
+            }
+            deleteNote={deleteNote}
+          />
+        </div>
+      )}
     </div>
   );
 }
