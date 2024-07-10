@@ -32,7 +32,7 @@ function App() {
     } catch (error: any) {
       console.log(error.message);
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   }
 
